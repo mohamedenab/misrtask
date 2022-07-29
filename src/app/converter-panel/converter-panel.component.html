@@ -1,0 +1,129 @@
+<div class="converter" [formGroup]="convertForm">
+  <div class="col amount">
+    <div class="col">
+      <div class="fromCon">
+      <mat-label>Amount</mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="0" formControlName="amount" autocomplete="amount" type="number" (keyup)="getResult($event)">
+      </mat-form-field></div>
+      <div class="rate" *ngIf="rateFactor !==0;else loading">
+        1.00 {{convertForm.get('fromLabel')?.value}} - {{rateFactor}} {{convertForm.get('toLabel')?.value}}
+      </div>
+    </div>
+
+  </div>
+  <div class="col convert" *ngIf="symbols !=={};else loading">
+    <div class="row">
+      <div class="col">
+        <mat-label>From</mat-label>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="fromLabel" (ngModelChange)="getRateFactor($event,convertForm.get('toLabel')?.value!,convertForm.get('amount')?.value!)">
+            <mat-option *ngFor="let symbol of symbols|keyvalue" [value]="symbol.key">{{symbol.key}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button (click)="swap()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21.92,11.62a1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L18.59,11H5.41l2.3-2.29A1,1,0,1,0,6.29,7.29l-4,4a1,1,0,0,0-.21.33,1,1,0,0,0,0,.76,1,1,0,0,0,.21.33l4,4a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L5.41,13H18.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33A1,1,0,0,0,21.92,11.62Z"
+            fill="#6563ff"/>
+        </svg>
+      </button>
+      <div class="col">
+        <mat-label>To</mat-label>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="toLabel" (ngModelChange)="getRateFactor(convertForm.get('fromLabel')?.value!,$event,convertForm.get('amount')?.value!)">
+            <mat-option *ngFor="let symbol of symbols|keyvalue" [value]="symbol.key">{{symbol.key}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button class="convertBtn">convert</button>
+      <div class="row resultCon">
+        <div class="result">
+          {{result}} {{convertForm.get('toLabel')?.value}}
+        </div>
+        <a class="details" *ngIf="!router.url.includes('details')" [routerLink]="'/details/'+convertForm.get('fromLabel')?.value!+'-'+convertForm.get('toLabel')?.value!">More Details</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<ng-template #loading>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+       style="margin: auto; display: block; shape-rendering: auto;" width="50px"
+       height="50px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+    <g transform="rotate(0 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.9166666666666666s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(30 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.8333333333333334s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(60 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.75s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(90 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.6666666666666666s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(120 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.5833333333333334s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(150 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.5s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(180 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.4166666666666667s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(210 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.3333333333333333s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(240 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.25s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(270 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.16666666666666666s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(300 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.08333333333333333s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+    <g transform="rotate(330 50 50)">
+      <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#1d3f72">
+        <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="0s"
+                 repeatCount="indefinite"></animate>
+      </rect>
+    </g>
+  </svg>
+</ng-template>
