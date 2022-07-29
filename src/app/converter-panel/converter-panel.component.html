@@ -42,7 +42,7 @@
         <div class="result">
           {{result}} {{convertForm.get('toLabel')?.value}}
         </div>
-        <a class="details" *ngIf="!router.url.includes('details')" [routerLink]="'/details/'+convertForm.get('fromLabel')?.value!+'-'+convertForm.get('toLabel')?.value!">More Details</a>
+        <a class="details" *ngIf="!router.url.includes('details')" [routerLink]="'/details'" >More Details</a>
       </div>
 
     </div>

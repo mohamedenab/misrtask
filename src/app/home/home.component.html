@@ -1,6 +1,6 @@
 <h2>currency Exchanger</h2>
 <app-converter-panel
-  (fromChange)="getRates($event)"
+  (fromChange)="getRates($event.from)"
   (amountChange)="amount = $event"
 ></app-converter-panel>
 <div class="grid" *ngIf="(symbols|keyvalue).length >0;else loading">

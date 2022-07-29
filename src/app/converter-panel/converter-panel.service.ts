@@ -7,6 +7,7 @@ import {map} from "rxjs";
   providedIn: 'root'
 })
 export class ConverterPanelService {
+  formValues = {from: '', to: '', amount: ''}
 
   constructor(private http: HttpClient) {
   }
