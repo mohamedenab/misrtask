@@ -1,8 +1,13 @@
 <div class="con" *ngIf="loadPanel">
-<app-converter-panel
-  (fromChange)="getSeries($event.from,$event.to)"
-></app-converter-panel>
-<div echarts [options]="options" *ngIf="loaded;else loading" ></div></div>
+  <div class="row">
+    <h2 *ngIf="currencyTitle.name !=='';else loading">{{currencyTitle.abb}} - {{currencyTitle.name}}</h2>
+    <button routerLink="/">Back to Home</button>
+  </div>
+  <app-converter-panel
+    (fromChange)="getSeries($event.from,$event.to,$event.full)"
+  ></app-converter-panel>
+  <div echarts [options]="options" *ngIf="loaded;else loading"></div>
+</div>
 <ng-template #loading>
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
        style="margin: auto; display: block; shape-rendering: auto;" width="50px"

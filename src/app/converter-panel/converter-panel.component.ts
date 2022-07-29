@@ -27,22 +27,23 @@ export class ConverterPanelComponent implements OnInit {
 
     this.converterPanelService.getSymbols().subscribe((res: any) => {
       this.symbols = res['symbols']
+      if (this.converterPanelService.formValues.from !== '') {
+        this.convertForm.get('fromLabel')?.setValue(this.converterPanelService.formValues.from)
+        this.convertForm.get('toLabel')?.setValue(this.converterPanelService.formValues.to)
+        this.convertForm.get('amount')?.setValue(this.converterPanelService.formValues.amount)
+      }
+      this.getRateFactor(this.convertForm.get('fromLabel')?.value!, this.convertForm.get('toLabel')?.value!,
+        this.convertForm.get('amount')?.value!);
     })
-    if (this.converterPanelService.formValues.from !== '') {
-      this.convertForm.get('fromLabel')?.setValue(this.converterPanelService.formValues.from)
-      this.convertForm.get('toLabel')?.setValue(this.converterPanelService.formValues.to)
-      this.convertForm.get('amount')?.setValue(this.converterPanelService.formValues.amount)
-    }
-    this.getRateFactor(this.convertForm.get('fromLabel')?.value!, this.convertForm.get('toLabel')?.value!,
-      this.convertForm.get('amount')?.value !== '' ? this.convertForm.get('amount')?.value! : '1');
+
   }
 
   getRateFactor(from: string, to: string, amount: string) {
-    this.fromChange.emit({from: from, to: to})
+    this.fromChange.emit({from: from, to: to, full: this.symbols[from as keyof typeof this.symbols]})
     this.converterPanelService.formValues = {from: from, to: to, amount: amount}
     this.converterPanelService.convertCurrency(from,
       to,
-      amount)
+      amount !== '' ? amount : '1')
       .subscribe((res: any) => {
         this.rateFactor = res.info.rate
       })
