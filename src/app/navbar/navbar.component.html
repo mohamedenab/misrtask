@@ -1,7 +1,7 @@
 <nav>
-  <img src="assets/images/bmp-logo.png" alt="logo">
+  <img src="assets/images/bmp-logo.png" alt="logo" routerLink="/">
   <div class="btnCon">
-    <a routerLink="/details/eur-usd">EUR-USD Details</a>
-    <a routerLink="/details/eur-gbp">EUR-GBP Details</a>
+    <a routerLink="/details" [queryParams]="{'from':'EUR','to':'USD'}">EUR-USD Details</a>
+    <a routerLink="/details" [queryParams]="{'from':'EUR','to':'GBP'}">EUR-GBP Details</a>
   </div>
 </nav>

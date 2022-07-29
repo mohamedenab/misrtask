@@ -1,24 +1,35 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {DatePipe} from "@angular/common";
 import {DetailsService} from "./details.service";
+import {ConverterPanelService} from "../converter-panel/converter-panel.service";
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   options: any;
-  loaded = true;
+  loaded = false;
+  loadPanel = false;
+  private parametersObservable: any;
 
-  constructor(private activateRoute: ActivatedRoute, private datePipe: DatePipe, private detailsService: DetailsService) {
-    this.activateRoute.params.subscribe((res: any) => {
-      console.log(res.code);
-    });
+  constructor(private activateRoute: ActivatedRoute, private datePipe: DatePipe, private detailsService: DetailsService, private converterPanelService: ConverterPanelService,) {
+
   }
 
   ngOnInit(): void {
+    this.parametersObservable = this.activateRoute.queryParams.subscribe((params) => {
+      if (params['from']) {
+        this.converterPanelService.formValues = {
+          from: params['from'],
+          to: params['to'],
+          amount: ''
+        }
+      }
+    })
+    this.loadPanel = true
     this.options = {
       xAxis: {
         type: 'category',
@@ -61,5 +72,11 @@ export class DetailsComponent implements OnInit {
       this.loaded = true
     })
 
+  }
+
+  ngOnDestroy() {
+    if (this.parametersObservable != null) {
+      this.parametersObservable.unsubscribe();
+    }
   }
 }

@@ -1,6 +1,5 @@
-<div class="con">
+<div class="con" *ngIf="loadPanel">
 <app-converter-panel
-
   (fromChange)="getSeries($event.from,$event.to)"
 ></app-converter-panel>
 <div echarts [options]="options" *ngIf="loaded;else loading" ></div></div>
