@@ -5,6 +5,7 @@ import {HomeRoutingModule} from './home-routing.module';
 import {HomeComponent} from './home.component';
 import {ConverterPanelModule} from "../converter-panel/converter-panel.module";
 import {HomeService} from "./home.service";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import {HomeService} from "./home.service";
     HomeComponent
   ],
   imports: [
-    CommonModule, ConverterPanelModule,
+    CommonModule, ConverterPanelModule, HttpClientModule,
     HomeRoutingModule
   ], providers: [HomeService]
 })

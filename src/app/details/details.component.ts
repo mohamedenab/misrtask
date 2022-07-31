@@ -64,7 +64,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.options.series[0].data = []
     this.currencyTitle = {abb: from, name: full}
     this.detailsService.getTimeSeries((new Date().getFullYear() - 1).toString(), from, to).subscribe((res: any) => {
-
       for (let a = 0; a < 12; a++) {
         const d = this.datePipe.transform(new Date(2021, a + 1, 0), 'yyyy-MM-dd')!.toString();
         this.options.series[0].data.push(res.rates[d][to])
